@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="initParams" access="public" >
+    <Code><![CDATA[begin
+  nRetVal=sioCtrl(siTcpIpFbk,"port",11002)
+  if (nRetVal!=0)
+    popUpMsg("Error while setting IP port")
+    //return ?
+  endIf
+
+  nRetVal=sioCtrl(siTcpIpFbk,"timeout",5)
+  if (nRetVal!=0)
+    popUpMsg("Error while setting TCP/IP timeout")
+    //return ?
+  endIf
+end]]></Code>
+  </Program>
+</Programs>

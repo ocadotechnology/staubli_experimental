@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Data/2">
+  <Datas>
+    <Data name="bFbkOverrun" access="public" xsi:type="array" type="bool" size="1" />
+    <Data name="bMotionOverrun" access="public" xsi:type="array" type="bool" size="1" />
+    <Data name="jCurrPose" access="public" xsi:type="array" type="jointRx" size="1" />
+    <Data name="mNomSpeed" access="private" xsi:type="array" type="mdesc" size="1">
+      <Value key="0" blend="off" />
+    </Data>
+    <Data name="nCounter" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="nFbkPeriod" access="public" xsi:type="array" type="num" size="1">
+      <Value key="0" value="0.032" />
+    </Data>
+    <Data name="nLengthB" access="public" xsi:type="array" type="num" size="4" />
+    <Data name="nMotionPeriod" access="private" xsi:type="array" type="num" size="1">
+      <Value key="0" value="0.012" />
+    </Data>
+    <Data name="nPosVelAccB" access="public" xsi:type="array" type="num" size="120" />
+    <Data name="nRetVal" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="nRobotIdB" access="public" xsi:type="array" type="num" size="4" />
+    <Data name="nTimeB" access="public" xsi:type="array" type="num" size="4" />
+    <Data name="nValidFieldsB" access="public" xsi:type="array" type="num" size="4">
+      <Value key="0" value="2" />
+    </Data>
+    <Data name="siTcpIpFbk" access="public" xsi:type="array" type="sio" size="1">
+      <Value key="0" link="Socket\Feedback" />
+    </Data>
+    <Data name="siTcpIpMotion" access="public" xsi:type="array" type="sio" size="1">
+      <Value key="0" link="Socket\Motion" />
+    </Data>
+    <Data name="sFbkTaskName" access="public" xsi:type="array" type="string" size="1">
+      <Value key="0" value="publisher" />
+    </Data>
+    <Data name="sMotionTaskName" access="public" xsi:type="array" type="string" size="1" />
+    <Data name="nMsgTypeB" access="public" xsi:type="array" type="num" size="4" />
+    <Data name="nCommTypeB" access="public" xsi:type="array" type="num" size="4" />
+    <Data name="nReplyCodeB" access="public" xsi:type="array" type="num" size="4" />
+    <Data name="rosMsgJointFbk" access="public" xsi:type="array" type="RosSimpleMsg" size="1">
+      <Value key="0">
+        <Field name="header" xsi:type="array" type="Header" size="1">
+          <Value key="0">
+            <Field name="nMsgType" xsi:type="array" type="num" size="1" />
+            <Field name="nCommType" xsi:type="array" type="num" size="1" />
+            <Field name="nReplyCode" xsi:type="array" type="num" size="1" />
+          </Value>
+        </Field>
+        <Field name="prefix" xsi:type="array" type="Prefix" size="1">
+          <Value key="0">
+            <Field name="nLength" xsi:type="array" type="num" size="1" />
+          </Value>
+        </Field>
+        <Field name="body" xsi:type="array" type="Body" size="1">
+          <Value key="0">
+            <Field name="nData" xsi:type="array" type="num" size="33" />
+          </Value>
+        </Field>
+      </Value>
+    </Data>
+    <Data name="bStream" access="public" xsi:type="array" type="bool" size="1" />
+    <Data name="nBytesSent" access="public" xsi:type="array" type="num" size="1" />
+    <Data name="rosMsgJState" access="public" xsi:type="array" type="RosSimpleMsg" size="1">
+      <Value key="0">
+        <Field name="header" xsi:type="array" type="Header" size="1">
+          <Value key="0">
+            <Field name="nMsgType" xsi:type="array" type="num" size="1" />
+            <Field name="nCommType" xsi:type="array" type="num" size="1" />
+            <Field name="nReplyCode" xsi:type="array" type="num" size="1" />
+          </Value>
+        </Field>
+        <Field name="prefix" xsi:type="array" type="Prefix" size="1">
+          <Value key="0">
+            <Field name="nLength" xsi:type="array" type="num" size="1" />
+          </Value>
+        </Field>
+        <Field name="body" xsi:type="array" type="Body" size="1">
+          <Value key="0">
+            <Field name="nData" xsi:type="array" type="num" size="11" />
+          </Value>
+        </Field>
+      </Value>
+    </Data>
+    <Data name="nSeqB" access="public" xsi:type="array" type="num" size="4" />
+    <Data name="nPosB" access="public" xsi:type="array" type="num" size="40" />
+    <Data name="nDeg2Rad" access="public" xsi:type="array" type="num" size="1" />
+  </Datas>
+</Database>

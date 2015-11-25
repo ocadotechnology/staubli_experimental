@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="sendJState" access="public">
+    <Code><![CDATA[begin
+  // send message length (prefix)
+  nRetVal = sioSet(siTcpIpFbk, nLengthB)
+  if (nRetVal == -1)
+    putln("Client not connected")
+    return
+  elseIf (nRetVal < 4)
+    popUpMsg("Error while sending prefix")
+  endIf
+
+  nBytesSent = size(nLengthB)
+
+  // send message header (msg type, comm type, reply code)
+  nRetVal = sioSet(siTcpIpFbk, nMsgTypeB)
+  if (nRetVal == -1)
+    putln("Client disconnected")
+    bStream = false
+    return
+  elseIf (nRetVal < 4)
+    popUpMsg("Error while sending msg type")
+  endIf
+  
+  nBytesSent = nBytesSent + size(nMsgTypeB)
+  
+  nRetVal = sioSet(siTcpIpFbk, nCommTypeB)
+  if (nRetVal == -1)
+    putln("Client disconnected")
+    bStream = false
+    return
+  elseIf (nRetVal < 4)
+    popUpMsg("Error while sending comm type")
+  endIf
+  
+  nBytesSent = nBytesSent + size(nCommTypeB)
+  
+  nRetVal = sioSet(siTcpIpFbk, nReplyCodeB)
+  if (nRetVal == -1)
+    putln("Client disconnected")
+    bStream = false
+    return
+  elseIf (nRetVal < 4)
+    popUpMsg("Error while sending reply code")
+  endIf
+  
+  nBytesSent = nBytesSent + size(nReplyCodeB)
+
+  // send message body (data)
+  // send sequence
+  nRetVal = sioSet(siTcpIpFbk, nSeqB)
+  if (nRetVal == -1)
+    putln("client disconnected")
+    bStream = false
+    return
+  elseIf (nRetVal < 4)
+    popUpMsg("Error while sending sequence")
+  endIf
+  
+  nBytesSent = nBytesSent + size(nSeqB)
+  
+  // send joints[]
+  nRetVal = sioSet(siTcpIpFbk, nPosB)
+  if (nRetVal == -1)
+    putln("Client disconnected")
+    bStream = false
+    return
+  elseIf (nRetVal < size(nPosB))
+    popUpMsg("Error while sending msg body")
+  endIf
+  
+  nBytesSent = nBytesSent + size(nPosB)
+  
+  //put("Joint state sent: ")
+  //putln(nBytesSent)
+  //bStream = false
+end]]></Code>
+  </Program>
+</Programs>

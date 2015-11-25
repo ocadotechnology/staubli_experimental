@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="encodeJState" access="public">
+    <Code><![CDATA[begin
+  // encode prefix length
+  nRetVal=toBinary(rosMsgJointFbk.prefix.nLength, 1, "-4l", nLengthB)
+
+  // encode header
+  nRetVal=toBinary(rosMsgJointFbk.header.nMsgType, 1, "-4l", nMsgTypeB) 
+  nRetVal=toBinary(rosMsgJointFbk.header.nCommType, 1, "-4l", nCommTypeB)
+  nRetVal=toBinary(rosMsgJointFbk.header.nReplyCode, 1, "-4l", nReplyCodeB)
+
+  // encode 'sequence' variable of body message (data)
+  nRetVal=toBinary(rosMsgJointFbk.body.nData, 1, "-4l", nSeqB)
+
+  // assuming the remaining elements have zeros assigned by default
+  rosMsgJState.body.nData[1] = jCurrPose.j1 * nDeg2Rad
+  rosMsgJState.body.nData[2] = jCurrPose.j2 * nDeg2Rad
+  rosMsgJState.body.nData[3] = jCurrPose.j3 * nDeg2Rad
+  rosMsgJState.body.nData[4] = jCurrPose.j4 * nDeg2Rad
+  rosMsgJState.body.nData[5] = jCurrPose.j5 * nDeg2Rad
+  rosMsgJState.body.nData[6] = jCurrPose.j6 * nDeg2Rad
+
+  // encode 10 values representing joints[10]
+  nRetVal=toBinary(rosMsgJState.body.nData[1], 10, "4.0l", nPosB)
+end]]></Code>
+  </Program>
+</Programs>

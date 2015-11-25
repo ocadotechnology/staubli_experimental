@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://www.staubli.com/robotics/VAL3/Project/3">
+  <Parameters version="s7.7.2" stackSize="5000" millimeterUnit="true" />
+  <Programs>
+    <Program file="encodeJointFbk.pgx" />
+    <Program file="encodeJState.pgx" />
+    <Program file="encodeStatus.pgx" />
+    <Program file="fbkStreamer.pgx" />
+    <Program file="initParams.pgx" />
+    <Program file="jStateStreamer.pgx" />
+    <Program file="sendJointFbk.pgx" />
+    <Program file="sendJState.pgx" />
+    <Program file="setupRosMsgs.pgx" />
+    <Program file="start.pgx" />
+    <Program file="stop.pgx" />
+  </Programs>
+  <Database>
+    <Data file="ros_i_driver.dtx" />
+  </Database>
+  <Libraries />
+  <Types>
+    <Type name="RosSimpleMsg" path="Disk://RosSimpleMsg/RosSimpleMsg.pjx" />
+  </Types>
+</Project>
