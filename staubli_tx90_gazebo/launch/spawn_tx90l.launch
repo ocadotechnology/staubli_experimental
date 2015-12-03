@@ -20,6 +20,6 @@
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 
   <!-- init and start Gazebo ros_control interface -->
-  <include file="$(find staubli_tx90_gazebo)/launch/tx90l_control.launch"/>
+  <include file="$(find staubli_tx90_gazebo)/launch/tx90_control.launch"/>
   
 </launch>
