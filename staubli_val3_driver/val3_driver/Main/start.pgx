@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="start">
+    <Locals>
+      <Local name="l_nSioCtrl" type="num" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin
+  bInputBuffering=true
+  sInputBuffering="inbuffer"
+  cls()
+  userPage()
+  l_nSioCtrl=sioCtrl(siConn,"timeout",0.5)
+  if (l_nSioCtrl<0)
+    putln("Could not set the timeout")
+  endIf
+  putln("Starting task")
+  taskCreate sInputBuffering,10,SIMPLE_MSG(trajMsg:prefix.nLength,trajMsg:header.nMsgType)
+end]]></Code>
+  </Program>
+</Programs>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="consume">
+    <Parameters xmlns="http://www.staubli.com/robotics/VAL3/Param/1">
+      <Parameter name="x_nStatus" type="num" xsi:type="element" use="reference" />
+      <Parameter name="x_nReference" type="num" xsi:type="element" />
+    </Parameters>
+    <Locals>
+      <Local name="l_nConnStatus" type="num" xsi:type="array" size="1" />
+      <Local name="l_nData" type="num" xsi:type="array" size="4" />
+      <Local name="l_nValue" type="num" xsi:type="array" size="1" />
+      <Local name="l_nBinaryStatus" type="num" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin
+  // consumes 4 bytes and verifes with the reference
+  // does nothing if first return parameter is not 0
+  // return
+  //    -1 - unexpected value
+  //     0 - expected value
+  if x_nStatus<0
+    return
+  endIf
+  x_nStatus=-1
+  l_nConnStatus=sioGet(siConn,l_nData)
+  if l_nConnStatus==4
+    l_nBinaryStatus=fromBinary(l_nData,4,"4l",l_nValue)
+    if l_nData==x_nReference
+      x_nStatus=0
+    endIf
+  endIf
+end]]></Code>
+  </Program>
+</Programs>

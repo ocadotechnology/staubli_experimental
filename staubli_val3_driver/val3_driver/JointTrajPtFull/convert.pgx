@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="convert" access="public">
+    <Parameters xmlns="http://www.staubli.com/robotics/VAL3/Param/1">
+      <Parameter name="x_jJoint" type="joint" xsi:type="element" use="reference" />
+      <Parameter name="x_mMdesc" type="mdesc" xsi:type="element" use="reference" />
+    </Parameters>
+    <Locals>
+      <Local name="l_nRadian2Deg" type="num" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin
+  l_nRadian2Deg = 180 / 3.14159265359
+  // POSITION = 0x02
+  if bAnd(body.validFields,2) == 2
+    x_jJoint.j1=body.positions[0] * l_nRadian2Deg
+    x_jJoint.j2=body.positions[1] * l_nRadian2Deg
+    x_jJoint.j3=body.positions[2] * l_nRadian2Deg
+    x_jJoint.j4=body.positions[3] * l_nRadian2Deg
+    x_jJoint.j5=body.positions[4] * l_nRadian2Deg
+    x_jJoint.j6=body.positions[5] * l_nRadian2Deg
+  endIf
+
+  // percent
+  x_mMdesc.accel=100
+  x_mMdesc.vel=100
+  x_mMdesc.decel=100
+
+  // VELOCITY = 0x04
+  if bAnd(body.validFields,4) == 4
+    // mm / s
+    x_mMdesc.tvel=body.velocities[0]
+    // deg / s
+    x_mMdesc.rvel=body.velocities[1]
+  endIf
+
+  // END_TRAJECTORY = -3, STOP_TRAJECTORY = -4
+  if body.sequence == -3 or body.sequence == -4
+    x_mMdesc.blend=off
+    x_mMdesc.leave=0
+    x_mMdesc.reach=0    
+  else
+    x_mMdesc.blend=Cartesian
+    // mm
+    x_mMdesc.leave=25
+    // mm
+    x_mMdesc.reach=25
+  endIf
+end]]></Code>
+  </Program>
+</Programs>

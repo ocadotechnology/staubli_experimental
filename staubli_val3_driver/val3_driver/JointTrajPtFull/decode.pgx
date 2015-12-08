@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="decode" access="public">
+    <Parameters xmlns="http://www.staubli.com/robotics/VAL3/Param/1">
+      <Parameter name="x_nStatus" type="num" xsi:type="element" use="reference" />
+      <Parameter name="x_nDWordBody" type="num" xsi:type="array" use="reference" dimensions="2" />
+    </Parameters>
+    <Locals>
+      <Local name="l_nBodyDWordLen" type="num" xsi:type="array" size="1" />
+      <Local name="i" type="num" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin 
+  // x_nStatus
+  // -1 - unsuccessful
+  // 0 - successful
+  x_nStatus=-1
+  l_nBodyDWordLen=34
+  if size(x_nDWordBody,1)!=l_nBodyDWordLen or size(x_nDWordBody,2)!=4
+    put("Size of the param is: "+toString("",size(x_nDWordBody,1)))
+    putln("x"+toString("",size(x_nDWordBody,2)))
+    return
+  endIf
+  x_nStatus=0
+  call decodeSharedInt(x_nStatus, body.robotId, x_nDWordBody, 0)
+  call decodeSharedInt(x_nStatus, body.sequence, x_nDWordBody, 1)
+  call decodeSharedInt(x_nStatus, body.validFields, x_nDWordBody, 2)
+  call decodeShareReal(x_nStatus, body.time, x_nDWordBody, 3)
+  call decodeJointData(x_nStatus, body.positions, x_nDWordBody, 4)
+  call decodeJointData(x_nStatus, body.velocities, x_nDWordBody, 14)
+  call decodeJointData(x_nStatus, body.accelerations, x_nDWordBody, 24)
+end]]></Code>
+  </Program>
+</Programs>

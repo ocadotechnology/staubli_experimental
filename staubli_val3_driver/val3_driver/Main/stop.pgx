@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="stop">
+    <Locals>
+      <Local name="l_nI" type="num" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin
+  putln("TaskStatus: "+toString("",taskStatus(sInputBuffering)))
+  bInputBuffering=false
+  wait(taskStatus(sInputBuffering)==0)
+  putln("TaskStatus: "+toString("",taskStatus(sInputBuffering)))
+  putln("Stopped.")
+end]]></Code>
+  </Program>
+</Programs>

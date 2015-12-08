@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="consumeAny">
+    <Parameters xmlns="http://www.staubli.com/robotics/VAL3/Param/1">
+      <Parameter name="x_nStatus" type="num" xsi:type="element" use="reference" />
+    </Parameters>
+    <Locals>
+      <Local name="l_nData" type="num" xsi:type="array" size="4" />
+    </Locals>
+    <Code><![CDATA[begin
+  // consumes 4 bytes and verifes with the reference
+  // does nothing if first return parameter is not 0
+  // return
+  //    -1 - unsuccessful 
+  //     0 - successfuly received (consumed) 4 bytes
+  if x_nStatus < 0
+    return
+  endIf
+  x_nStatus=-1
+  if sioGet(siConn,l_nData)==4
+    x_nStatus=0
+  endIf
+end]]></Code>
+  </Program>
+</Programs>

@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
+  <Program name="SIMPLE_MSG">
+    <Parameters xmlns="http://www.staubli.com/robotics/VAL3/Param/1">
+      <Parameter name="x_nLength" type="num" xsi:type="element" />
+      <Parameter name="x_nMsgType" type="num" xsi:type="element" />
+    </Parameters>
+    <Locals>
+      <Local name="l_nStatus" type="num" xsi:type="array" size="1" />
+      <Local name="l_nBytesToGet" type="num" xsi:type="array" size="1" />
+      <Local name="i" type="num" xsi:type="array" size="1" />
+      <Local name="j" type="num" xsi:type="array" size="1" />
+      <Local name="k" type="num" xsi:type="array" size="1" />
+      <Local name="l_nRespBuffer" type="num" xsi:type="array" size="152" />
+      <Local name="l_jJoint" type="joint" xsi:type="array" size="1" />
+      <Local name="l_mMdesc" type="mdesc" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin
+  // This TASK specialises in receiving ros simple messages
+  // thus it validates prefix and the header and then accepts
+  // the bytes from the body
+  // payload length in bytes minus header size (12 bytes)
+  l_nBytesToGet=x_nLength - 12
+  resize(nInputBuffer,1,l_nBytesToGet)
+  resize(nMessageBuffer,1,l_nBytesToGet/4)
+  resize(nMessageBuffer,2,4)
+  while (bInputBuffering)
+    l_nStatus=0
+    // prefix
+    call consume(l_nStatus,x_nLength)
+    // header
+    call consume(l_nStatus,x_nMsgType)
+    call consume(l_nStatus,msgSpec:commType.nRequest)
+    call consumeAny(l_nStatus)
+    if l_nStatus < 0
+      //putln("Not connected / wrong request.")
+    else
+      // get the body
+      j = 0
+      k = 0
+      while j < l_nBytesToGet / 4
+        l_nStatus=sioGet(siConn,nInputBuffer)
+        if l_nStatus > 0
+          for i = 0 to l_nStatus - 1
+            nMessageBuffer[j,k] = nInputBuffer[i]
+            k = k + 1
+            if k > 3
+              k = 0
+              j = j + 1
+            endIf
+          endFor
+        endIf
+      endWhile
+      // decode the body
+      call trajMsg:decode(l_nStatus,nMessageBuffer)
+      delay(0)
+      // acknowledge
+      trajMsg:header.nCommType = msgSpec:commType.nResponse
+      if l_nStatus < 0
+        trajMsg:header.nReplyCode = msgSpec:replyType.nFailure
+        putln("Failed to decode the body of the message.")
+      else
+        //  call trajMsg:print()
+        trajMsg:header.nReplyCode = msgSpec:replyType.nSuccess
+      endIf
+      call trajMsg:encode(l_nStatus, l_nRespBuffer)
+      if l_nStatus < 0
+        putln("Failed to encode the acknowledge message.")
+        trajMsg:header.nReplyCode = msgSpec:replyType.nFailure
+      endIf
+      l_nStatus = sioSet(siConn, l_nRespBuffer)
+      if l_nStatus < 0
+        putln("Failed to send acknowledge response: "+toString("",l_nStatus))
+      else
+        call trajMsg:convert(l_jJoint, l_mMdesc)
+        put(toString("5",l_jJoint.j1)+","+toString("5",l_jJoint.j2)+","+toString("5",l_jJoint.j3))
+        putln(","+toString("5",l_jJoint.j4)+","+toString("5",l_jJoint.j5)+","+toString("5",l_jJoint.j6))
+        movej(l_jJoint, flange, l_mMdesc)
+      endIf
+    endIf
+  endWhile
+end]]></Code>
+  </Program>
+</Programs>
