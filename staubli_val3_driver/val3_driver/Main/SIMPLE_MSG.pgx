@@ -33,7 +33,7 @@
     call consume(l_nStatus,msgSpec:commType.nRequest)
     call consumeAny(l_nStatus)
     if l_nStatus < 0
-      //putln("Not connected / wrong request.")
+      putln("Not connected / wrong request.")
     else
       // get the body
       j = 0

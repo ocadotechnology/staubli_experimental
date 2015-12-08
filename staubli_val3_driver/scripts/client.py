@@ -4,11 +4,12 @@ from itertools import cycle
 import math
 import socket
 import struct
+import sys
 import time
 
 HOST = 'localhost'   # The remote host
 PORT = 11000         # The same port as used by the server
-
+START = time.time()
 
 # *   StandardMsgType 4 bytes
 # *   CommType        4 bytes
@@ -30,9 +31,11 @@ def pack_positions(positions):
     positions = [el for el in map(math.radians, positions)]
     # prefix length
     msg = struct.pack('<I', 148)
+    # header + body
     msg += struct.pack('<iiiiiif', *JointTrajPtFull(
         msg_type=14, comm_type=2, reply_type=-1,
-        robot_id=-1, sequence=0, valid_fields=2, time=-1,
+        robot_id=-1, sequence=0, valid_fields=2,
+        time=time.time() - START,
     ))
     msg += struct.pack('<ffffffffff', *(positions + [0, 0, 0, 0]))
     msg += struct.pack('<ffffffffff', *([-1] * 10))
@@ -42,6 +45,7 @@ def pack_positions(positions):
 
 def print_resp(resp):
     if not resp:
+        print('No response.')
         return
     try:
         print(JointTrajPtFull(*struct.unpack(
@@ -69,14 +73,15 @@ class Connection:
 
     def reconnect(self):
         self.conn.close()
+        sys.stderr.write("Connection lost.\n")
+        self.conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.conn.connect((self.host, self.port))
 
-    def communicate(self, msg, period):
+    def communicate(self, msg):
         size = len(msg)
         self.conn.send(msg)
-        resp = self.conn.recv(size)
-        time.sleep(period)
-        return resp
+        return self.conn.recv(size)
+
 
 TRAJECTORY = [
     [0, 0, 0, 0, 0, 0],
@@ -96,18 +101,35 @@ TRAJECTORY = [
 ]
 
 
+def intervalcall(func, interval):
+    start = time.time()
+    func()
+    ttsleep = interval - (time.time() - start)
+    if ttsleep > 0:
+        time.sleep(ttsleep)
+    else:
+        sys.stderr.write(
+            "Call exceeded the specified interval {:.2f}x times\n"
+            .format(1 - ttsleep / interval)
+        )
+
+
+def send_position(conn, points):
+    try:
+        resp = conn.communicate(pack_positions(points))
+    except IOError:
+        # reconnects if the rate is too slow
+        conn.reconnect()
+        resp = conn.communicate(pack_positions(points))
+    print_resp(resp)
+
+
 def main(*args):
     rate = float(args[0]) if args else 10
     with Connection(HOST, PORT) as conn:
         for points in cycle(TRAJECTORY):
-            try:
-                resp = conn.communicate(pack_positions(points), 1 / rate)
-            except IOError:
-                # reconnects if the rate is too slow
-                conn.reconnect()
-                resp = conn.communicate(pack_positions(points), 1 / rate)
-            print_resp(resp)
+            intervalcall(lambda: send_position(conn, points), 1 / rate)
+
 
 if __name__ == '__main__':
-    import sys
     sys.exit(main(*sys.argv[1:]))
