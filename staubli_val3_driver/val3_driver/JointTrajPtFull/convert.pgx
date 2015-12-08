@@ -20,17 +20,23 @@
     x_jJoint.j6=body.positions[5] * l_nRadian2Deg
   endIf
 
-  // percent
+  // default values
   x_mMdesc.accel=100
   x_mMdesc.vel=100
   x_mMdesc.decel=100
-
+  x_mMdesc.tvel=99999
+  x_mMdesc.rvel=99999
+  
   // VELOCITY = 0x04
   if bAnd(body.validFields,4) == 4
-    // mm / s
-    x_mMdesc.tvel=body.velocities[0]
-    // deg / s
-    x_mMdesc.rvel=body.velocities[1]
+    // percent
+    x_mMdesc.vel=body.velocities[0]
+  endIf
+
+  if bAnd(body.validFields,8) == 8
+    //percent
+    x_mMdesc.accel=body.accelerations[0]
+    x_mMdesc.decel=body.accelerations[1]
   endIf
 
   // END_TRAJECTORY = -3, STOP_TRAJECTORY = -4
@@ -42,7 +48,6 @@
     x_mMdesc.blend=Cartesian
     // mm
     x_mMdesc.leave=25
-    // mm
     x_mMdesc.reach=25
   endIf
 end]]></Code>

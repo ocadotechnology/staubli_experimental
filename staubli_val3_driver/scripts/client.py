@@ -11,9 +11,14 @@ HOST = 'localhost'   # The remote host
 PORT = 11000         # The same port as used by the server
 START = time.time()
 
+# JointTrajPtFull
+# prefix
+# *   Length          4 bytes
+# header
 # *   StandardMsgType 4 bytes
 # *   CommType        4 bytes
 # *   ReplyType       4 bytes
+# body
 # *   robot_id            (industrial::shared_types::shared_int)    4  bytes
 # *   sequence            (industrial::shared_types::shared_int)    4  bytes
 # *   valid_fields        (industrial::shared_types::shared_int)    4  bytes
@@ -21,7 +26,8 @@ START = time.time()
 # *   positions           (industrial::joint_data)                  40 bytes
 # *   velocities          (industrial::joint_data)                  40 bytes
 # *   accelerations       (industrial::joint_data)                  40 bytes
-JointTrajPtFull = namedtuple('JointTrajPtFull', [
+
+JointTrajPtPart = namedtuple('JointTrajPtPart', [
     'msg_type', 'comm_type', 'reply_type',
     'robot_id', 'sequence', 'valid_fields', 'time',
 ])
@@ -32,14 +38,16 @@ def pack_positions(positions):
     # prefix length
     msg = struct.pack('<I', 148)
     # header + body
-    msg += struct.pack('<iiiiiif', *JointTrajPtFull(
+    msg += struct.pack('<iiiiiif', *JointTrajPtPart(
         msg_type=14, comm_type=2, reply_type=-1,
-        robot_id=-1, sequence=0, valid_fields=2,
+        robot_id=-1, sequence=0, valid_fields=2 + 4 + 8,
         time=time.time() - START,
     ))
-    msg += struct.pack('<ffffffffff', *(positions + [0, 0, 0, 0]))
-    msg += struct.pack('<ffffffffff', *([-1] * 10))
-    msg += struct.pack('<ffffffffff', *([-1] * 10))
+    msg += struct.pack('<ffffffffff', *(positions + [0] * 4))
+    # velocities
+    msg += struct.pack('<ffffffffff', *([100] + [0] * 9))
+    # accelerations
+    msg += struct.pack('<ffffffffff', *([100, 100] + [0] * 8))
     return msg
 
 
@@ -48,7 +56,7 @@ def print_resp(resp):
         print('No response.')
         return
     try:
-        print(JointTrajPtFull(*struct.unpack(
+        print(JointTrajPtPart(*struct.unpack(
             '<iiiiiiifffffffffffffffffffffffffffffff', resp
         )[1:8]))
     except Exception:
@@ -125,7 +133,7 @@ def send_position(conn, points):
 
 
 def main(*args):
-    rate = float(args[0]) if args else 10
+    rate = float(args[0]) if args else 4
     with Connection(HOST, PORT) as conn:
         for points in cycle(TRAJECTORY):
             intervalcall(lambda: send_position(conn, points), 1 / rate)

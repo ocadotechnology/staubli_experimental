@@ -9,7 +9,7 @@
   sInputBuffering="inbuffer"
   cls()
   userPage()
-  l_nSioCtrl=sioCtrl(siConn,"timeout",0.5)
+  l_nSioCtrl=sioCtrl(siConn,"timeout",60)
   if (l_nSioCtrl<0)
     putln("Could not set the timeout")
   endIf
