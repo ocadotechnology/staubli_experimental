@@ -1,20 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
-  <Program name="start">
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="start" access="private" >
     <Locals>
       <Local name="l_nSioCtrl" type="num" xsi:type="array" size="1" />
     </Locals>
     <Code><![CDATA[begin
   bInputBuffering=true
-  sInputBuffering="inbuffer"
+  sInputBuffering="subscriber"
+  bTaskManager=true
   cls()
+  resetMotion()
   userPage()
-  l_nSioCtrl=sioCtrl(siConn,"timeout",60)
+  l_nSioCtrl=sioCtrl(siConn,"timeout",5)
   if (l_nSioCtrl<0)
     putln("Could not set the timeout")
   endIf
   putln("Starting task")
-  taskCreate sInputBuffering,10,SIMPLE_MSG(trajMsg:prefix.nLength,trajMsg:header.nMsgType)
+  l_nSioCtrl=sioCtrl(soConn,"timeout",5)
+  if (l_nSioCtrl<0)
+    putln("Could not set the timeout")
+  endIf
+  taskCreate sInputBuffering,50,SIMPLE_MSG(trajMsg:prefix.nLength,trajMsg:header.nMsgType)
+  taskCreate "t_manage",10,TASK_MANAGER()
 end]]></Code>
   </Program>
 </Programs>

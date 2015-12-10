@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
-  <Program name="encode" access="public">
-    <Parameters xmlns="http://www.staubli.com/robotics/VAL3/Param/1">
-      <Parameter name="x_nStatus" type="num" xsi:type="element" use="reference" />
-      <Parameter name="x_nOutputBuffer" type="num" xsi:type="array" use="reference" />
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="encode" access="public" >
+    <Parameters xmlns="http://www.staubli.com/robotics/VAL3/Param/1" >
+      <Parameter name="x_nStatus" type="num" use="reference" xsi:type="element" dimensions="1" />
+      <Parameter name="x_nOutputBuffer" type="num" use="reference" xsi:type="array" dimensions="1" />
     </Parameters>
     <Locals>
       <Local name="l_nDWordBytes" type="num" xsi:type="array" size="4" />
@@ -11,22 +11,22 @@
       <Local name="i" type="num" xsi:type="array" size="1" />
     </Locals>
     <Code><![CDATA[begin
-  if x_nStatus < 0
+  if x_nStatus<0
     return
   endIf
-  l_nBufferPos = 0
-  x_nStatus = 0
-  call encodeSharedInt(x_nStatus, x_nOutputBuffer, l_nBufferPos, prefix.nLength)
-  call encodeSharedInt(x_nStatus, x_nOutputBuffer, l_nBufferPos, header.nMsgType)
-  call encodeSharedInt(x_nStatus, x_nOutputBuffer, l_nBufferPos, header.nCommType)
-  call encodeSharedInt(x_nStatus, x_nOutputBuffer, l_nBufferPos, header.nReplyCode)
-  call encodeSharedInt(x_nStatus, x_nOutputBuffer, l_nBufferPos, body.robotId)
-  call encodeSharedInt(x_nStatus, x_nOutputBuffer, l_nBufferPos, body.sequence)
-  call encodeSharedInt(x_nStatus, x_nOutputBuffer, l_nBufferPos, body.validFields)
-  call encodeShareReal(x_nStatus, x_nOutputBuffer, l_nBufferPos, body.time)
-  call encodeJointData(x_nStatus, x_nOutputBuffer, l_nBufferPos, body.positions)
-  call encodeJointData(x_nStatus, x_nOutputBuffer, l_nBufferPos, body.velocities)
-  call encodeJointData(x_nStatus, x_nOutputBuffer, l_nBufferPos, body.accelerations)
+  l_nBufferPos=0
+  x_nStatus=0
+  call encodeSharedInt(x_nStatus,x_nOutputBuffer,l_nBufferPos,prefix.nLength)
+  call encodeSharedInt(x_nStatus,x_nOutputBuffer,l_nBufferPos,header.nMsgType)
+  call encodeSharedInt(x_nStatus,x_nOutputBuffer,l_nBufferPos,header.nCommType)
+  call encodeSharedInt(x_nStatus,x_nOutputBuffer,l_nBufferPos,header.nReplyCode)
+  call encodeSharedInt(x_nStatus,x_nOutputBuffer,l_nBufferPos,body.robotId)
+  call encodeSharedInt(x_nStatus,x_nOutputBuffer,l_nBufferPos,body.sequence)
+  call encodeSharedInt(x_nStatus,x_nOutputBuffer,l_nBufferPos,body.validFields)
+  call encodeShareReal(x_nStatus,x_nOutputBuffer,l_nBufferPos,body.time)
+  call encodeJointData(x_nStatus,x_nOutputBuffer,l_nBufferPos,body.positions)
+  call encodeJointData(x_nStatus,x_nOutputBuffer,l_nBufferPos,body.velocities)
+  call encodeJointData(x_nStatus,x_nOutputBuffer,l_nBufferPos,body.accelerations)
 end]]></Code>
   </Program>
 </Programs>

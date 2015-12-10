@@ -9,15 +9,16 @@
       <Local name="l_nRadian2Deg" type="num" xsi:type="array" size="1" />
     </Locals>
     <Code><![CDATA[begin
-  // END_TRAJECTORY = -3
-  // STOP_TRAJECTORY = -4
+  // SEQUENCE
+  //   END_TRAJECTORY -3
+  //   STOP_TRAJECTORY -4
   if body.sequence == -4
     stopMove()
     resetMotion()
   elseIf body.sequence == -3
     x_mMdesc.blend=off
     x_mMdesc.leave=0
-    x_mMdesc.reach=0    
+    x_mMdesc.reach=0
   else
     x_mMdesc.blend=Cartesian
     // mm
@@ -27,7 +28,7 @@
   
   l_nRadian2Deg = 180 / 3.14159265359
   
-  // POSITION = 0x02
+  // POSITION 0x02
   if bAnd(body.validFields,2) == 2
     x_jJoint.j1=body.positions[0] * l_nRadian2Deg
     x_jJoint.j2=body.positions[1] * l_nRadian2Deg
@@ -44,12 +45,13 @@
   x_mMdesc.tvel=99999
   x_mMdesc.rvel=99999
   
-  // VELOCITY = 0x04
+  // VELOCITY 0x04
   if bAnd(body.validFields,4) == 4
     // percent
     x_mMdesc.vel=body.velocities[0]
   endIf
 
+  // ACCELERATION 0x08
   if bAnd(body.validFields,8) == 8
     //percent
     x_mMdesc.accel=body.accelerations[0]

@@ -1,25 +1,25 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
-  <Program name="encodeJointData" access="public">
-    <Parameters xmlns="http://www.staubli.com/robotics/VAL3/Param/1">
-      <Parameter name="x_nStatus" type="num" xsi:type="element" use="reference" />
-      <Parameter name="x_nOutputBuffer" type="num" xsi:type="array" use="reference" />
-      <Parameter name="x_nBufferPos" type="num" xsi:type="element" use="reference" />
-      <Parameter name="x_nJointData" type="num" xsi:type="array" use="reference" />
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="encodeJointData" access="public" >
+    <Parameters xmlns="http://www.staubli.com/robotics/VAL3/Param/1" >
+      <Parameter name="x_nStatus" type="num" use="reference" xsi:type="element" dimensions="1" />
+      <Parameter name="x_nOutputBuffer" type="num" use="reference" xsi:type="array" dimensions="1" />
+      <Parameter name="x_nBufferPos" type="num" use="reference" xsi:type="element" dimensions="1" />
+      <Parameter name="x_nJointData" type="num" use="reference" xsi:type="array" dimensions="1" />
     </Parameters>
     <Locals>
       <Local name="l_nDWordBytes" type="num" xsi:type="array" size="4" />
       <Local name="i" type="num" xsi:type="array" size="1" />
     </Locals>
     <Code><![CDATA[begin
-  if x_nStatus < 0
+  if x_nStatus<0
     return
   endIf
-  x_nStatus = 0
-  for i = 0 to size(x_nJointData) - 1
-    call encodeShareReal(x_nStatus, x_nOutputBuffer, x_nBufferPos, x_nJointData[i])
-    if x_nStatus < 0
-      putln("Failed to encode joint data at index: "+toString("", x_nBufferPos)+" with "+toString("",x_nJointData[i]))
+  x_nStatus=0
+  for i=0 to size(x_nJointData)-1
+    call encodeShareReal(x_nStatus,x_nOutputBuffer,x_nBufferPos,x_nJointData[i])
+    if x_nStatus<0
+      putln("Failed to encode joint data at index: "+toString("",x_nBufferPos)+" with "+toString("",x_nJointData[i]))
       return
     endIf
   endFor

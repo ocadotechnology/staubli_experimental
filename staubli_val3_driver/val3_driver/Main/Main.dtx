@@ -1,15 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Database xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Data/2">
   <Datas>
-    <Data name="bInputBuffering" access="private" xsi:type="array" type="bool" size="1" />
-    <Data name="mNomSpeed" access="private" xsi:type="array" type="mdesc" size="1" />
+    <Data name="bInputBuffering" access="private" xsi:type="array" type="bool" size="1">
+    </Data>
+    <Data name="bTaskManager" access="private" xsi:type="array" type="bool" size="1">
+    </Data>
+    <Data name="jHome" access="private" xsi:type="array" type="jointRx" size="1">
+    </Data>
+    <Data name="mNomSpeed" access="private" xsi:type="array" type="mdesc" size="1">
+    </Data>
+    <Data name="nInputBuffer" access="private" xsi:type="array" type="num" size="136">
+      <Value key="0" value="1" />
+      <Value key="4" value="255" />
+      <Value key="5" value="255" />
+      <Value key="6" value="255" />
+      <Value key="7" value="255" />
+      <Value key="8" value="15" />
+      <Value key="14" value="164" />
+      <Value key="15" value="66" />
+      <Value key="58" value="72" />
+      <Value key="59" value="66" />
+      <Value key="98" value="200" />
+      <Value key="99" value="65" />
+      <Value key="102" value="200" />
+      <Value key="103" value="65" />
+    </Data>
+    <Data name="nMessageBuffer" access="private" xsi:type="array" type="num" size="34 4">
+      <Value key="0,0" value="1" />
+      <Value key="1,0" value="255" />
+      <Value key="1,1" value="255" />
+      <Value key="1,2" value="255" />
+      <Value key="1,3" value="255" />
+      <Value key="2,0" value="15" />
+      <Value key="3,2" value="164" />
+      <Value key="3,3" value="66" />
+      <Value key="14,2" value="72" />
+      <Value key="14,3" value="66" />
+      <Value key="24,2" value="200" />
+      <Value key="24,3" value="65" />
+      <Value key="25,2" value="200" />
+      <Value key="25,3" value="65" />
+    </Data>
     <Data name="siConn" access="private" xsi:type="array" type="sio" size="1">
       <Value key="0" link="Socket\subscriber" />
     </Data>
-    <Data name="sInputBuffering" access="private" xsi:type="array" type="string" size="1">
-      <Value key="0" value="inbuffer" />
+    <Data name="soConn" access="private" xsi:type="array" type="sio" size="1">
+      <Value key="0" link="Socket\publisher" />
     </Data>
-    <Data name="nInputBuffer" access="private" xsi:type="array" type="num" size="1" />
-    <Data name="nMessageBuffer" access="private" xsi:type="array" type="num" size="1 1" />
+    <Data name="sInputBuffering" access="private" xsi:type="array" type="string" size="1">
+      <Value key="0" value="subscriber" />
+    </Data>
   </Datas>
 </Database>

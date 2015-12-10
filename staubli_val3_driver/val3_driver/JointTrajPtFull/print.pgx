@@ -1,25 +1,25 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
-  <Program name="print" access="public">
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="print" access="public" >
     <Code><![CDATA[begin
   putln("robot_id: "+toString("",body.robotId))
   putln("sequence: "+toString("",body.sequence))
   putln("valid_fields: "+toString("",body.validFields))
-  if bAnd(body.validFields,1) == 1
+  if bAnd(body.validFields,1)==1
     putln("time: "+toString(".3",body.time))
   endIf
-  if bAnd(body.validFields,2) == 2
+  if bAnd(body.validFields,2)==2
     put("positions: ")
-    call printArray("1.2", body.positions)
+    call printArray("1.2",body.positions)
   endIf
-  if bAnd(body.validFields,4) == 4
+  if bAnd(body.validFields,4)==4
     put("velocities: ")
-    call printArray("1.2", body.velocities)
+    call printArray("1.2",body.velocities)
   endIf
-  if bAnd(body.validFields,8) == 8
+  if bAnd(body.validFields,8)==8
     put("accelerations: ")
-    call printArray("1.2", body.accelerations)
-  endIf  
+    call printArray("1.2",body.accelerations)
+  endIf
 end]]></Code>
   </Program>
 </Programs>

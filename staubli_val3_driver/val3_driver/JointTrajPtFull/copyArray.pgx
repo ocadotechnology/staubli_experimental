@@ -1,10 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
-  <Program name="copyArray">
-    <Parameters xmlns="http://www.staubli.com/robotics/VAL3/Param/1">
-      <Parameter name="x_nDestArray" type="num" xsi:type="array" use="reference" />
-      <Parameter name="x_nIndex" type="num" xsi:type="element" use="reference" />
-      <Parameter name="x_nSourceArray" type="num" xsi:type="array" use="reference" />
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="copyArray" access="private" >
+    <Parameters xmlns="http://www.staubli.com/robotics/VAL3/Param/1" >
+      <Parameter name="x_nDestArray" type="num" use="reference" xsi:type="array" dimensions="1" />
+      <Parameter name="x_nIndex" type="num" use="reference" xsi:type="element" dimensions="1" />
+      <Parameter name="x_nSourceArray" type="num" use="reference" xsi:type="array" dimensions="1" />
     </Parameters>
     <Locals>
       <Local name="i" type="num" xsi:type="array" size="1" />
@@ -13,10 +13,10 @@
   // copies whole x_nSourceArray to the greater or equal x_nDestArray
   // starting from x_nIndex, changes the x_nIndex to point to the
   // position one after the copied elements
-  for i = 0 to size(x_nSourceArray) - 1
-    x_nDestArray[x_nIndex + i] = x_nSourceArray[i]
+  for i=0 to size(x_nSourceArray)-1
+    x_nDestArray[x_nIndex+i]=x_nSourceArray[i]
   endFor
-  x_nIndex = x_nIndex + size(x_nSourceArray)
+  x_nIndex=x_nIndex+size(x_nSourceArray)
 end]]></Code>
   </Program>
 </Programs>

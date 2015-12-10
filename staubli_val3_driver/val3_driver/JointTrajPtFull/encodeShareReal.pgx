@@ -1,27 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2">
-  <Program name="encodeShareReal" access="public">
-    <Parameters xmlns="http://www.staubli.com/robotics/VAL3/Param/1">
-      <Parameter name="x_nStatus" type="num" xsi:type="element" use="reference" />
-      <Parameter name="x_nOutputBuffer" type="num" xsi:type="array" use="reference" />
-      <Parameter name="x_nBufferPos" type="num" xsi:type="element" use="reference" />
-      <Parameter name="x_nSharedReal" type="num" xsi:type="element" />
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="encodeShareReal" access="public" >
+    <Parameters xmlns="http://www.staubli.com/robotics/VAL3/Param/1" >
+      <Parameter name="x_nStatus" type="num" use="reference" xsi:type="element" dimensions="1" />
+      <Parameter name="x_nOutputBuffer" type="num" use="reference" xsi:type="array" dimensions="1" />
+      <Parameter name="x_nBufferPos" type="num" use="reference" xsi:type="element" dimensions="1" />
+      <Parameter name="x_nSharedReal" type="num" use="value" xsi:type="element" dimensions="1" />
     </Parameters>
     <Locals>
       <Local name="l_nDWordBytes" type="num" xsi:type="array" size="4" />
     </Locals>
     <Code><![CDATA[begin
-  if x_nStatus < 0
+  if x_nStatus<0
     return
   endIf
-  x_nStatus = -1
-  x_nStatus = toBinary(x_nSharedReal,1,"4.0l",l_nDWordBytes)
-  if x_nStatus < 0
-    putln("Failed to encode shared real at index: "+toString("", x_nBufferPos)+", status: "+toString("",x_nStatus))
+  x_nStatus=-1
+  x_nStatus=toBinary(x_nSharedReal,1,"4.0l",l_nDWordBytes)
+  if x_nStatus<0
+    putln("Failed to encode shared real at index: "+toString("",x_nBufferPos)+", status: "+toString("",x_nStatus))
     return
-  endIf  
-  call copyArray(x_nOutputBuffer, x_nBufferPos, l_nDWordBytes)
- 
+  endIf
+  call copyArray(x_nOutputBuffer,x_nBufferPos,l_nDWordBytes)
+
 end]]></Code>
   </Program>
 </Programs>
