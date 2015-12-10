@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="getRow" access="private" >
+    <Parameters xmlns="http://www.staubli.com/robotics/VAL3/Param/1" >
+      <Parameter name="x_nRow" type="num" use="reference" xsi:type="array" dimensions="1" />
+      <Parameter name="x_nMatrix" type="num" use="reference" xsi:type="array" dimensions="2" />
+      <Parameter name="x_nRowIndex" type="num" use="value" xsi:type="element" dimensions="1" />
+    </Parameters>
+    <Locals>
+      <Local name="j" type="num" xsi:type="array" size="1" />
+    </Locals>
+    <Code><![CDATA[begin
+  for j=0 to size(x_nMatrix,2)-1
+    x_nRow[j]=x_nMatrix[x_nRowIndex,j]
+  endFor
+end]]></Code>
+  </Program>
+</Programs>

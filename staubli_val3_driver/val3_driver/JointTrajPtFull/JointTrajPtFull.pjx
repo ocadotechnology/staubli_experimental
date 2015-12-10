@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://www.staubli.com/robotics/VAL3/Project/3" >
+  <Parameters version="s7.3" stackSize="5000" millimeterUnit="true" />
+  <Programs>
+    <Program file="convert.pgx" />
+    <Program file="copyArray.pgx" />
+    <Program file="decode.pgx" />
+    <Program file="decodeJointData.pgx" />
+    <Program file="decodeShareReal.pgx" />
+    <Program file="decodeSharedInt.pgx" />
+    <Program file="encode.pgx" />
+    <Program file="encodeJointData.pgx" />
+    <Program file="encodeShareReal.pgx" />
+    <Program file="encodeSharedInt.pgx" />
+    <Program file="getRow.pgx" />
+    <Program file="print.pgx" />
+    <Program file="printArray.pgx" />
+  </Programs>
+  <Database>
+    <Data file="JointTrajPtFull.dtx" />
+  </Database>
+  <Libraries>
+  </Libraries>
+  <Types>
+    <Type name="Prefix" path="Disk://Prefix/Prefix.pjx" />
+    <Type name="Header" path="Disk://Header/Header.pjx" />
+    <Type name="Body" path="Disk://JTrajPtFullBody/JTrajPtFullBody.pjx" />
+  </Types>
+</Project>

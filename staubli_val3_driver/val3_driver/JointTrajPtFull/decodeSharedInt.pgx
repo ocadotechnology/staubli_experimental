@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="decodeSharedInt" access="public" >
+    <Parameters xmlns="http://www.staubli.com/robotics/VAL3/Param/1" >
+      <Parameter name="x_nStatus" type="num" use="reference" xsi:type="element" dimensions="1" />
+      <Parameter name="x_nValue" type="num" use="reference" xsi:type="element" dimensions="1" />
+      <Parameter name="x_nDWordBody" type="num" use="reference" xsi:type="array" dimensions="2" />
+      <Parameter name="x_nRowIndex" type="num" use="value" xsi:type="element" dimensions="1" />
+    </Parameters>
+    <Locals>
+      <Local name="l_nDWordBytes" type="num" xsi:type="array" size="4" />
+    </Locals>
+    <Code><![CDATA[begin
+  if x_nStatus<0
+    return
+  endIf
+  x_nStatus=-1
+  call getRow(l_nDWordBytes,x_nDWordBody,x_nRowIndex)
+  x_nStatus=fromBinary(l_nDWordBytes,4,"-4l",x_nValue)
+  if x_nStatus<0
+    putln("Failed to decode shared int at index "+toString("",x_nRowIndex)+" with status "+toString("",x_nStatus))
+  endIf
+end]]></Code>
+  </Program>
+</Programs>

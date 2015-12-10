@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sio>
+  <socketSrv>
+    <String name="name" value="publisher" />
+    <String name="desc" value="" />
+    <Uint name="portNumber" value="11002" />
+    <Int name="endOfString" value="13" />
+    <Float name="timeOut" value="5" />
+    <Bool name="nagle" value="true" />
+  </socketSrv>
+  <socketSrv>
+    <String name="name" value="subscriber" />
+    <String name="desc" value="" />
+    <Uint name="portNumber" value="11000" />
+    <Int name="endOfString" value="13" />
+    <Float name="timeOut" value="5" />
+    <Bool name="nagle" value="true" />
+  </socketSrv>
+</sio>

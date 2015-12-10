@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://www.staubli.com/robotics/VAL3/Project/3" >
+  <Parameters version="s7.3" stackSize="5000" millimeterUnit="true" />
+  <Programs>
+    <Program file="SIMPLE_MSG.pgx" />
+    <Program file="TASK_MANAGER.pgx" />
+    <Program file="consume.pgx" />
+    <Program file="consumeAny.pgx" />
+    <Program file="start.pgx" />
+    <Program file="stop.pgx" />
+  </Programs>
+  <Database>
+    <Data file="Main.dtx" />
+  </Database>
+  <Libraries>
+    <Library alias="trajMsg" path="Disk://JointTrajPtFull/JointTrajPtFull.pjx" autoload="true" password="" />
+    <Library alias="msgSpec" path="Disk://SimpleMessage/SimpleMessage.pjx" autoload="true" password="" />
+  </Libraries>
+  <Types>
+  </Types>
+</Project>

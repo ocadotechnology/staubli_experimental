@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Programs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.staubli.com/robotics/VAL3/Program/2" >
+  <Program name="TASK_MANAGER" access="private" >
+    <Code><![CDATA[begin
+  while (bTaskManager)
+    if taskStatus(sInputBuffering)==150
+      taskKill(sInputBuffering)
+      resetMotion()
+      putln("Restart SIMPLE_MSG task.")
+      taskCreate sInputBuffering,50,SIMPLE_MSG(trajMsg:prefix.nLength,trajMsg:header.nMsgType)
+    endIf
+  endWhile
+end]]></Code>
+  </Program>
+</Programs>
