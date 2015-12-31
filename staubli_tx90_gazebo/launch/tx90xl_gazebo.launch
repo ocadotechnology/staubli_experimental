@@ -3,7 +3,7 @@
   <arg name="paused" default="false"/>
   <arg name="gui" default="true"/>
   <arg name="remap" default="false"/>
-  
+
   <group if="$(arg remap)">
     <!-- remap topics to conform to ROS-I specifications -->
     <remap from="/arm_controller/follow_joint_trajectory" to="/joint_trajectory_action" />
@@ -29,6 +29,6 @@
   
   <!-- send robot URDF to ROS param server,
        and spawn robot in Gazebo, along with necessary ROS nodes -->
-  <include file="$(find staubli_rx160_gazebo)/launch/spawn_rx160.launch"/>
+  <include file="$(find staubli_tx90_gazebo)/launch/spawn_tx90xl.launch"/>
   
 </launch>
