@@ -12,6 +12,5 @@
   <Types>
     <Type name="Prefix" path="Disk://Prefix/Prefix.pjx" />
     <Type name="Header" path="Disk://Header/Header.pjx" />
-    <Type name="Body" path="Disk://Body/Body.pjx" />
   </Types>
 </Project>
