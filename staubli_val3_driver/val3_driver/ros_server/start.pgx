@@ -37,7 +37,7 @@
   // flags to control tasks: should start sending/receiving
   bSendData = true
   bRecvData = true
-  bCheckHeartbeat = true
+  bCheckHeartbeat = false
   
   nPtsPopped = 0
   nMovePts = 0
@@ -54,6 +54,11 @@
   //if (watch(isPowered(), 5) == false)
   //  popUpMsg("Arm power could not be enabled")
   //endIf
+
+  // flush buffer of incoming socket
+  clearBuffer(siTcpIpMotion)
+  // flush buffer of outgoing socket
+  clearBuffer(siTcpIpFbk)
 
   // create joint state and robot status streamer task to send data to industrial_robot_client
   taskCreateSync sStreamTaskName, nFbkPeriod, bFbkOverrun, dataStreamer()
