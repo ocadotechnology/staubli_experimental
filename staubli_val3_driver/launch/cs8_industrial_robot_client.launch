@@ -5,7 +5,7 @@
   
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
   
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find industrial_robot_client)/config/robot_state_visualize.rviz" required="true" />
+  <!--  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find industrial_robot_client)/config/robot_state_visualize.rviz" required="true" /> -->
 
 
   <!-- This launch file provides a socket-based connection to industrial robots
@@ -35,9 +35,9 @@
   
   <!-- motion_download_interface: sends robot motion commands by DOWNLOADING path to robot
                                   (using socket connection to robot) -->
-  <!-- <node pkg="industrial_robot_client" type="motion_download_interface" name="motion_download_interface"/> -->
+  <node pkg="industrial_robot_client" type="motion_streaming_interface" name="motion_streaming_interface"/>
   
   <!-- joint_trajectory_action: provides actionlib interface for high-level robot control -->
-  <!-- <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action"/> -->
+  <node pkg="industrial_robot_client" type="joint_trajectory_action" name="joint_trajectory_action"/>
 
 </launch>
