@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package>
+  <name>staubli_val3_driver</name>
+  <version>0.0.1</version>
+  <description>The staubli_val3_driver package</description>
+
+  <maintainer email="murilo.martins@ocado.com">Murilo Martins</maintainer>
+
+  <license>Apache2.0</license>
+
+  <author email="murilo.martins@ocado.com">Murilo Martins</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+</package>
