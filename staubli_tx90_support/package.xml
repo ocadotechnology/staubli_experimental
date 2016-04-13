@@ -52,18 +52,18 @@
   <license>Apache2.0</license>
 
   <url type="website">http://ros.org/wiki/staubli_tx90_support</url>
-  <url type="bugtracker">https://github.com/ros-industrial/staubli/issues</url>
-  <url type="repository">https://github.com/ros-industrial/staubli</url>
+  <url type="bugtracker">https://github.com/ros-industrial/staubli_experimental/issues</url>
+  <url type="repository">https://github.com/ros-industrial/staubli_experimental</url>
 
   <buildtool_depend>catkin</buildtool_depend>
 
   <build_depend>roslaunch</build_depend>
 
-  <run_depend>robot_state_publisher</run_depend>
   <run_depend>joint_state_publisher</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
   <run_depend>rviz</run_depend>
-  <run_depend>xacro</run_depend>
   <run_depend>staubli_resources</run_depend>
+  <run_depend>xacro</run_depend>
 
   <export>
     <architecture_independent />
