@@ -1,5 +1,12 @@
 <?xml version="1.0"?>
 <launch>
+  <arg name="x" default="0.0" />
+  <arg name="y" default="0.0" />
+  <arg name="z" default="0.0" />
+  <arg name="roll" default="0.0" />
+  <arg name="pitch" default="0.0" />
+  <arg name="yaw" default="0.0" />
+
   <!-- send robot urdf to ROS param server -->
   <include file="$(find staubli_tx90_gazebo)/launch/load_tx90xl.launch" />
 
@@ -9,12 +16,12 @@
         args="-urdf
               -param robot_description
               -model tx90xl
-              -x 0.0
-              -y 0.0
-              -z 0.0
-              -R 0.0
-              -P 0.0
-              -Y 0.0" />
+              -x $(arg x)
+              -y $(arg y)
+              -z $(arg z)
+              -R $(arg roll)
+              -P $(arg pitch)
+              -Y $(arg yaw)" />
 
   <!-- convert joint states to TF transforms for rviz, etc -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
